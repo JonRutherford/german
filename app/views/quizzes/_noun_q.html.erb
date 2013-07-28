@@ -1,0 +1,28 @@
+<% params = !@is_random ? { order: @order } : {} %>
+<% quiz_item = @noun %>
+<%= form_tag({ controller: "quizzes", action: "random_noun", params: params }, remote: true) do %>
+  <%= label_tag "answer" do %>
+    <strong id="noun_from"><%= label_from(@noun) %></strong>
+    <small id="noun_plural"><%= "(#{@noun.plural})" if show_plural? %></small>
+    <%= button_tag('notes', 
+                   type: 'button', 
+                   class: "btn btn-mini btn-link toggle collapsed", 
+                   disabled: @noun.notes.blank?, 
+                   data: { toggle: "collapse", target: "#noun_notes" })  %>
+  <% end %>
+  <%= text_field_tag "answer", "", 
+                     placeholder: translation_placeholder, 
+                     autocomplete: :off, autofocus: :true %>
+  <div id="noun_notes" class="collapse"><%= @noun.notes %></div>
+  <%= hidden_field_tag "correct_answer", correct_answer(@noun) %>
+
+  <div class="actions">
+    <%= submit_tag "Submit", class: "btn btn-primary submit-answer" %>
+    <%= submit_tag "Hint", class: "btn btn-small request-hint" %>
+    <%= button_tag "Skip", class: "btn btn-small" %>
+  </div>
+<% end %>
+
+<div id="hint">
+
+</div>

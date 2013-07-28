@@ -1,0 +1,36 @@
+<%= form_for(@noun) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+<!--   <%= render 'shared/german_chars' %> -->
+  <div class="field">
+    <%= f.label :english %>
+    <%= f.text_field :english %>
+  </div>
+  <div class="field">
+    <%= f.label :german %>
+    <%= f.text_field :german %>
+  </div>
+  <div class="field">
+    <%= f.label :plural %>
+    <%= f.text_field :plural %>
+  </div>
+  <div class="field">
+    <%= f.label :article %>
+    <%= f.collection_select :article_id, Article.all, :id, :article %>
+  </div>
+  <div class="field">
+    <%= f.label :category %>
+    <%= f.collection_select :category_id, Category.all, :id, :name %>
+  </div>
+  <div class="field">
+    <%= f.label :notes %>
+    <%= f.text_area :notes, placeholder: "Additional notes/helpers", rows: 5 %>
+  </div>
+  <div class="actions">
+    <% if @noun.new_record? %>
+      <%= f.submit "Create noun", class: "btn btn-primary" %>
+    <% else %>
+      <%= f.submit "Save noun", class: "btn btn-primary" %>
+      <%= f.submit "Cancel", class: "btn" %>
+    <% end %>
+  </div>
+<% end %>

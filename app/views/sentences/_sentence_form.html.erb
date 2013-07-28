@@ -1,0 +1,28 @@
+<%= form_for(@sentence) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+<!--   <%= render 'shared/german_chars' %> -->
+  <div class="field">
+    <%= f.label :english %>
+    <%= f.text_field :english, autofocus: true %>
+  </div>
+  <div class="field">
+    <%= f.label :german %>
+    <%= f.text_field :german %>
+  </div>
+  <div class="field">
+    <%= f.label :literal_translation %>
+    <%= f.text_field :literal_translation %>
+  </div>
+  <div class="field">
+    <%= f.label :notes %>
+    <%= f.text_area :notes, placeholder: "Additional notes/helpers", rows: 5 %>
+  </div>
+  <div class="actions">
+    <% if @sentence.new_record? %>
+      <%= f.submit "Create sentence", class: "btn btn-primary" %>
+    <% else %>
+      <%= f.submit "Save sentence", class: "btn btn-primary" %>
+      <%= f.submit "Cancel", class: "btn" %>
+    <% end %>
+  </div>
+<% end %>

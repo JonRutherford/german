@@ -1,0 +1,9 @@
+<h1>Sentences</h1>
+
+<% if @sentences.any? %>
+  <%= will_paginate @sentences %>
+  <ul id="sentences_list" class="simple_list">
+    <%= render partial: 'sentence', collection: @sentences %>
+  </ul>
+  <%= will_paginate @sentences %>
+<% end %>

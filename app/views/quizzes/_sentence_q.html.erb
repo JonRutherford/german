@@ -1,0 +1,27 @@
+<% params = !@is_random ? { order: @order } : {} %>
+<%= form_tag({ controller: "quizzes", action: "random_sentence", params: params }, remote: true) do %>
+  <%= label_tag "answer" do %>
+  	<strong id="sentence_from"><%= label_from(@sentence) %></strong>
+  	<small id="sentence_literal"><%= "(#{@sentence.literal_translation})" if show_literal? %></small>
+  	<%= button_tag('notes', 
+                   type: 'button', 
+  				         class: "btn btn-mini btn-link toggle collapsed", 
+  	               disabled: @sentence.notes.blank?, 
+  	               data: { toggle: "collapse", target: "#sentence_notes" })  %>
+  <% end %>
+  <%= text_field_tag "answer", "", 
+                     placeholder: translation_placeholder, 
+                     autocomplete: :off, autofocus: :true %>
+  <div id="sentence_notes" class="collapse"><%= @sentence.notes %></div>
+  <%= hidden_field_tag "correct_answer", correct_answer(@sentence) %>
+
+  <div class="actions">
+    <%= submit_tag "Submit", class: "btn btn-primary submit-answer" %>
+    <%= submit_tag "Hint", class: "btn btn-small request-hint" %>
+    <%= button_tag "Skip", class: "btn btn-small" %>
+  </div>
+<% end %>
+
+<div id="hint">
+
+</div>

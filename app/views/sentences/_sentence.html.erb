@@ -1,0 +1,23 @@
+<li id="<%= sentence.id %>">
+  <div class="content">
+    <em><%= wrap(sentence.english) %>
+      <% if !sentence.literal_translation.blank? %>
+      	<small>(<%= wrap(sentence.literal_translation) %>)</small>
+      <% end %>
+    </em>
+    <strong><%= wrap(sentence.german) %></strong>
+    
+    <% if !sentence.notes.blank? %>
+      <small>-> <%= wrap(sentence.notes) %></small>
+    <% end %>
+
+    <div class="actions">
+      <%= link_to edit_sentence_path(sentence), class: "btn btn-mini btn-warning" do %>
+  	    <i class="icon-pencil"></i> Edit
+	    <% end %>
+      <%= link_to sentence, class: "btn btn-mini btn-danger", method: :delete, data: { confirm: "Are you sure?" } do %>
+  	    <i class="icon-remove"></i> Delete
+	    <% end %>
+	  </div>
+  </div>
+</li>

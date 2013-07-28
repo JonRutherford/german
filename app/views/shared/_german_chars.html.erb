@@ -1,0 +1,5 @@
+<div id="german_chars" class="text-center">
+  <% for c in [["ß", "s"], ["ä", "a"], ["Ä", "A"], ["ö", "o"], ["Ö", "O"], ["ü", "u"], ["Ü", "U"]] %>
+    <input type="button" class="btn" value="<%= c[0] %>" data-toggle="tooltip" title="\<%= c[1] %>"/>
+  <% end %>
+</div>
