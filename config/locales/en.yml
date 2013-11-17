@@ -2,4 +2,15 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      user:
+        password_digest: Password
+  
+  message_sent: "Message sent to %{user}"
+  user_not_found: "User '%{user}' not found"
+  password_reset_sent: "Email sent to %{email} with password reset instructions"
+  email_not_registered: Email address not registered
+  invalid_password_reset_token: Invalid password reset token
+  password_reset_token_expired: Password reset token has expired
+  password_reset: Password has been reset!

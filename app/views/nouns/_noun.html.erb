@@ -1,15 +1,19 @@
 <li id="<%= noun.id %>">
   <div class="content">
     <em><%= wrap(noun.english) %></em>
-    <strong><%= "#{noun.article.article} #{wrap(noun.german)}" %></strong>
+    <strong><%= "#{noun.article.nominative} #{wrap(noun.german)}" %></strong>
 
     <div class="actions">
-      <%= link_to edit_noun_path(noun), class: "btn btn-mini btn-warning" do %>
-  	    <i class="icon-pencil"></i> Edit
-	    <% end %>
-      <%= link_to noun, class: "btn btn-mini btn-danger", method: :delete, data: { confirm: "Are you sure?" } do %>
-  	    <i class="icon-remove"></i> Delete
-	    <% end %>
+      <% if current_user.admin? %>
+        <%= link_to edit_noun_path(noun), class: "btn btn-mini btn-warning" do %>
+    	    <i class="icon-pencil"></i> Edit
+  	    <% end %>
+      <% end %>
+      <% if current_user.admin? %>
+        <%= link_to noun, class: "btn btn-mini btn-danger", method: :delete, data: { confirm: "Are you sure?" } do %>
+    	    <i class="icon-remove"></i> Delete
+  	    <% end %>
+      <% end %>
 	  </div>
   </div>
 </li>

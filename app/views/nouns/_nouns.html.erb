@@ -8,9 +8,6 @@
 
 <% if @nouns.any? %>
   <%= will_paginate @nouns %>
-
-  
-
   <ul id="nouns_list" class="simple_list">
     <%= render partial: 'noun', collection: @nouns %>
   </ul>

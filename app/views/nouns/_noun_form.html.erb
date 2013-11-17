@@ -14,12 +14,13 @@
     <%= f.text_field :plural %>
   </div>
   <div class="field">
-    <%= f.label :article %>
-    <%= f.collection_select :article_id, Article.all, :id, :article %>
+    <%= f.label :article_id %>
+    <%= f.collection_select :article_id, Article.all, :id, :nominative, {} %>
   </div>
   <div class="field">
-    <%= f.label :category %>
-    <%= f.collection_select :category_id, Category.all, :id, :name %>
+    <%= f.label :categories %>
+    <%= f.collection_select :category_ids, Category.all, :id, :name, { selected: @noun.categories.map(&:id), include_blank: false }, { multiple: true } %>
+
   </div>
   <div class="field">
     <%= f.label :notes %>
