@@ -1,4 +1,5 @@
 class QuizzesController < ApplicationController
+  before_filter :signed_in_user
   before_filter :hint
   before_filter :check_order, only: [:random_sentence, :random_noun]
 
