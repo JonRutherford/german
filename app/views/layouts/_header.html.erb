@@ -4,15 +4,17 @@
       <%= link_to "German Lernen", root_path, class: "brand" %>
       <nav>
         <ul class="nav pull-right">
-          <% if signed_in? %>
+          <% if !signed_in? %>
             <li class="divider-vertical"></li>
             <li><%= link_to "Home", root_path %></li>
+          <% else %>
             <li class="divider-vertical"></li>
             <li><%= link_to "Nouns", nouns_path %></li>
             <li class="divider-vertical"></li>
             <li><%= link_to "Quizzes", quizzes_path %></li>
             <li class="divider-vertical"></li>
             <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
+            <li class="divider-vertical"></li>
           <% end %>
         </ul>
       </nav>
