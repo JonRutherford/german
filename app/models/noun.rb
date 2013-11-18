@@ -31,8 +31,8 @@ class Noun < ActiveRecord::Base
   validates :created_by, presence: true
   	
   # for removing blank values from array (useful for collection_select bug)			   
-  before_validation do |model|
-    model.subset_array.reject!(&:blank?) if model.subset_array
+  before_validation do |noun|
+    noun.category_ids.reject!(&:blank?) if noun.category_ids
   end
 
   def self.random(n=1)
