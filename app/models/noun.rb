@@ -20,7 +20,7 @@ class Noun < ActiveRecord::Base
   belongs_to :article
   belongs_to :updated_by, class_name: :User
   belongs_to :created_by, class_name: :User
-  attr_accessible :category_ids, :categorisations, :article_id, :english, :german, :plural, :notes,
+  attr_accessible :category_ids, :article_id, :english, :german, :plural, :notes,
     :updated_by, :created_by
 
   validates :english, presence: true, uniqueness: { scope: :german, case_sensitive: true }
