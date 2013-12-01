@@ -1,0 +1,19 @@
+<li id="<%= verb.id %>">
+  <div class="content">
+    <em><%= wrap(verb.infinitive.english) %></em>
+    <strong><%= wrap(verb.infinitive.german) %></strong>
+
+    <div class="actions">
+      <% if current_user.admin? %>
+        <%= link_to verb_path(verb), class: "btn btn-mini btn-warning" do %>
+          <i class="icon-pencil"></i> Edit
+        <% end %>
+      <% end %>
+      <% if current_user.admin? %>
+        <%= link_to verb, class: "btn btn-mini btn-danger", method: :delete, data: { confirm: "Are you sure?" } do %>
+          <i class="icon-remove"></i> Delete
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</li>

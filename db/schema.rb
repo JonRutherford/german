@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131117042331) do
+ActiveRecord::Schema.define(:version => 20131201013934) do
 
   create_table "articles", :force => true do |t|
     t.string   "nominative"
@@ -31,14 +31,13 @@ ActiveRecord::Schema.define(:version => 20131117042331) do
 
   create_table "categorisations", :force => true do |t|
     t.integer  "category_id"
-    t.integer  "noun_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "sentence_part_id"
+    t.string   "sentence_part_type"
   end
 
-  add_index "categorisations", ["category_id", "noun_id"], :name => "index_categorisations_on_category_id_and_noun_id", :unique => true
   add_index "categorisations", ["category_id"], :name => "index_categorisations_on_category_id"
-  add_index "categorisations", ["noun_id"], :name => "index_categorisations_on_noun_id"
 
   create_table "nouns", :force => true do |t|
     t.datetime "created_at",    :null => false
@@ -70,6 +69,18 @@ ActiveRecord::Schema.define(:version => 20131117042331) do
 
   add_index "sentences", ["created_at"], :name => "index_sentences_on_created_at", :unique => true
 
+  create_table "tenses", :force => true do |t|
+    t.string   "first_person_singular"
+    t.string   "first_person_plural"
+    t.string   "second_person_informal"
+    t.string   "second_person_plural"
+    t.string   "second_person_plural_formal"
+    t.string   "third_person_singular"
+    t.string   "third_person_plural"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
@@ -87,5 +98,29 @@ ActiveRecord::Schema.define(:version => 20131117042331) do
   add_index "users", ["password_reset_token"], :name => "index_users_on_password_reset_token", :unique => true
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token", :unique => true
   add_index "users", ["user_name"], :name => "index_users_on_user_name", :unique => true
+
+  create_table "verbs", :force => true do |t|
+    t.integer  "updated_by_id"
+    t.integer  "created_by_id"
+    t.integer  "present_tense_id"
+    t.integer  "infinitive_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "category_id"
+  end
+
+  add_index "verbs", ["category_id"], :name => "index_verbs_on_category_id"
+  add_index "verbs", ["created_by_id"], :name => "index_verbs_on_created_by_id"
+  add_index "verbs", ["infinitive_id"], :name => "index_verbs_on_infinitive_id"
+  add_index "verbs", ["present_tense_id"], :name => "index_verbs_on_present_tense_id"
+  add_index "verbs", ["updated_by_id"], :name => "index_verbs_on_updated_by_id"
+
+  create_table "words", :force => true do |t|
+    t.string   "english"
+    t.string   "german"
+    t.string   "notes"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

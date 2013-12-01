@@ -11,8 +11,12 @@ module QuizzesHelper
   	!@sentence.literal_translation.blank? && @order == "en_to_de"
   end
 
-  def translation_placeholder
-  	"Translate to #{@order == 'en_to_de' ? 'German' : 'English'}"
+  def from_lang
+    @order == "en_to_de" ? "english" : "german"
+  end
+
+  def to_lang
+    @order == "en_to_de" ? "german" : "english"
   end
 
   def correct_answer(obj)

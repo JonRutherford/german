@@ -1,0 +1,30 @@
+<%= bootstrap_form_for @verb, html: { class: "form-horizontal" } do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+<!--   <%= render 'shared/german_chars' %> -->
+  
+  <%= f.fields_for :infinitive do |i| %>
+    <%= i.text_field :english %>
+    <%= i.text_field :german, label: "German (infinitive)" %>
+  <% end %>
+
+  <%= f.fields_for :present_tense do |pt| %>
+    <%= pt.text_field :first_person_singular %>
+    <%= pt.text_field :first_person_plural  %>
+    <%= pt.text_field :second_person_informal  %>
+    <%= pt.text_field :second_person_plural  %>
+    <%= pt.text_field :second_person_plural_formal  %>
+    <%= pt.text_field :third_person_singular  %>
+    <%= pt.text_field :third_person_plural  %>
+    <%= f.collection_select :category_ids, Category.all, :id, :name, { selected: @verb.categories.map(&:id) }, { multiple: true, label: "Categories" } %>
+  <% end %>
+
+  <div class="pull-right">
+    <% if @verb.new_record? %>
+      <%= f.submit "Create verb", class: "btn btn-primary" %>
+    <% else %>
+      <%= f.button "Undo", { type: :reset, class: "btn btn-success" } %>
+      <%= f.submit "Cancel", class: "btn btn-danger" %>
+      <%= f.submit "Save verb", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,37 +1,37 @@
-$(function () {  
-  $("#question").on('click', ".submit-answer", function(event) {
-    var correct = is_correct();
-  	me = $(this);
-    if (!correct) {
-      $("#answer").focus();
-    }
-    toggle_class(me, 2, correct ? "btn-success" : "btn-danger", "btn-primary");
-  	return correct;
-  })
+// $(function () {  
+//   $("#question").on('click', ".submit-answer", function(event) {
+//     var correct = is_correct();
+//   	me = $(this);
+//     if (!correct) {
+//       $("#answer").focus();
+//     }
+//     toggle_class(me, 2, correct ? "btn-success" : "btn-danger", "btn-primary");
+//   	return correct;
+//   })
 
-  .on('click', ".request-hint", function(event) {
-    event.preventDefault();
+//   .on('click', ".request-hint", function(event) {
+//     event.preventDefault();
     
-    correct_answer = $("#correct_answer").val();
-    answer_elem = $("#answer");
-    answer = answer_elem.val();
+//     correct_answer = $("#correct_answer").val();
+//     answer_elem = $("#answer");
+//     answer = answer_elem.val();
     
-    if (is_correct()) {
-      toggle_class($(".submit-answer"), 2, "btn-success", "btn-primary");
-      return;
-    }
-    else {
-      var error_index = find_error_index();
-      if (error_index != -1) {
-        answer_elem.val(answer_elem.val().slice(0, error_index));
-      }
-      else {
-        add_correct_word();
-      }
-    }
-    answer_elem.focus();
-  });
-});
+//     if (is_correct()) {
+//       toggle_class($(".submit-answer"), 2, "btn-success", "btn-primary");
+//       return;
+//     }
+//     else {
+//       var error_index = find_error_index();
+//       if (error_index != -1) {
+//         answer_elem.val(answer_elem.val().slice(0, error_index));
+//       }
+//       else {
+//         add_correct_word();
+//       }
+//     }
+//     answer_elem.focus();
+//   });
+// });
 
 function toggle_class(btn, count, new_cls, start_cls) {
   if (count <= 0) { return; }

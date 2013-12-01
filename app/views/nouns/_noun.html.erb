@@ -5,7 +5,7 @@
 
     <div class="actions">
       <% if current_user.admin? %>
-        <%= link_to edit_noun_path(noun), class: "btn btn-mini btn-warning" do %>
+        <%= link_to noun_path(noun), class: "btn btn-mini btn-warning" do %>
     	    <i class="icon-pencil"></i> Edit
   	    <% end %>
       <% end %>

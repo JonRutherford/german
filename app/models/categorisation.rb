@@ -11,9 +11,10 @@
 
 class Categorisation < ActiveRecord::Base
   belongs_to :category
-  belongs_to :noun
+  belongs_to :sentence_part, polymorphic: true
   attr_accessible :category, :noun
 
   validates :category_id, presence: true
-  validates :noun_id, presence: true, uniqueness: { scope: :category_id }
+  validates :sentence_part_id, presence: true
+  #validates :noun_id, presence: true, uniqueness: { scope: :category_id }
 end

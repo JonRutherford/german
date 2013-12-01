@@ -16,7 +16,7 @@
 
 class Noun < ActiveRecord::Base
   has_many :categories, through: :categorisations
-  has_many :categorisations, dependent: :destroy
+  has_many :categorisations, as: :sentence_part, dependent: :destroy
   belongs_to :article
   belongs_to :updated_by, class_name: :User
   belongs_to :created_by, class_name: :User
@@ -29,11 +29,12 @@ class Noun < ActiveRecord::Base
   validates :article, presence: true
   validates :updated_by, presence: true
   validates :created_by, presence: true
+  validates :categories, presence: true
   	
   # for removing blank values from array (useful for collection_select bug)			   
-  before_validation do |noun|
-    noun.category_ids.reject!(&:blank?) if noun.category_ids
-  end
+  # before_validation do |noun|
+  #   noun.category_ids.reject!(&:blank?) if noun.category_ids
+  # end
 
   def self.random(n=1)
     ids = ActiveRecord::Base.connection.select_values("select id from #{self.to_s.pluralize}").sample(n)

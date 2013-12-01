@@ -7,6 +7,7 @@ gem 'execjs'
 gem 'therubyracer'
 gem 'jquery-rails'
 gem 'bootstrap-sass'
+gem 'bootstrap_form'
 gem 'bcrypt-ruby'
 gem "validates_existence", ">= 0.4"
 

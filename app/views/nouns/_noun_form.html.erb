@@ -1,37 +1,20 @@
-<%= form_for(@noun) do |f| %>
+<%= bootstrap_form_for(@noun, html: { class: 'form-horizontal' }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 <!--   <%= render 'shared/german_chars' %> -->
-  <div class="field">
-    <%= f.label :english %>
-    <%= f.text_field :english %>
-  </div>
-  <div class="field">
-    <%= f.label :german %>
-    <%= f.text_field :german %>
-  </div>
-  <div class="field">
-    <%= f.label :plural %>
-    <%= f.text_field :plural %>
-  </div>
-  <div class="field">
-    <%= f.label :article_id %>
-    <%= f.collection_select :article_id, Article.all, :id, :nominative, {} %>
-  </div>
-  <div class="field">
-    <%= f.label :categories %>
-    <%= f.collection_select :category_ids, Category.all, :id, :name, { selected: @noun.categories.map(&:id), include_blank: false }, { multiple: true } %>
-
-  </div>
-  <div class="field">
-    <%= f.label :notes %>
-    <%= f.text_area :notes, placeholder: "Additional notes/helpers", rows: 5 %>
-  </div>
-  <div class="actions">
+  <%= f.text_field :english %>
+  <%= f.text_field :german %>
+  <%= f.text_field :plural %>
+  <%= f.collection_select :article_id, Article.all, :id, :nominative, {} %>
+  <%= f.collection_select :category_ids, Category.all, :id, :name, { selected: @noun.categories.map(&:id), include_blank: false }, { multiple: true, label: "Categories" } %>
+  <%= f.text_area :notes, placeholder: "Additional notes/helpers", rows: 5 %>
+  
+  <div class="pull-right">
     <% if @noun.new_record? %>
       <%= f.submit "Create noun", class: "btn btn-primary" %>
     <% else %>
+      <%= f.button "Undo", { type: :reset, class: "btn btn-success" } %>
+      <%= f.submit "Cancel", class: "btn btn-danger" %>
       <%= f.submit "Save noun", class: "btn btn-primary" %>
-      <%= f.submit "Cancel", class: "btn" %>
     <% end %>
   </div>
 <% end %>

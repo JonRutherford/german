@@ -4,8 +4,6 @@ class NounsController < ApplicationController
   before_filter :set_current_page
   before_filter :user_is_admin_or_creator, only: [:destroy, :edit]
 
-  # GET /nouns
-  # GET /nouns.json
   def index
     @noun = Noun.new
     @nouns = Noun.search(params[:search], params[:page])
@@ -18,17 +16,14 @@ class NounsController < ApplicationController
   def show
     @noun = Noun.find(params[:id])
     @nouns = Noun.search(params[:search], params[:page])
-    render "index"
+    render action: :index
   end
 
-  # GET /nouns/1/edit
-  def edit
-    @nouns = Noun.search(params[:search], params[:page])
-    render "index"
-  end
+  # def edit
+  #   @nouns = Noun.search(params[:search], params[:page])
+  #   render action: :index
+  # end
 
-  # POST /nouns
-  # POST /nouns.json
   def create
     @noun = Noun.new(params[:noun])
     @noun.created_by = current_user
@@ -37,13 +32,11 @@ class NounsController < ApplicationController
     respond_to do |format|
       if @noun.save
         format.html { redirect_to nouns_path, notice: 'Noun was successfully created.' }
-        #format.json { render json: @noun, status: :created, location: @noun }
       else
         format.html { 
           @nouns = Noun.paginate(page: params[:page])
           render action: :index
         }
-        # format.json { render json: @noun.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -55,7 +48,7 @@ class NounsController < ApplicationController
     params[:noun][:updated_by] = current_user
 
     respond_to do |format|
-      if @noun.update_attributes(params[:noun]) && @noun.update_attributes(updated_by: current_user)
+      if @noun.update_attributes(params[:noun])
         format.html { redirect_to nouns_path, notice: 'Noun was successfully updated.' }
         # format.json { head :no_content }
       else
