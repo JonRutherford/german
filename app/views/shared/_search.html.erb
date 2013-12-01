@@ -5,15 +5,7 @@
   </div>
   <% if !params[:search].blank? %>
     <div id="search_results_description">
-      <em><%= pluralize(@nouns.count, "search result") %> for <%= @search %></em>
+      <em><%= pluralize(objects.count, "search result") %> for <%= @search %></em>
     </div>
   <% end %>
-<% end %>
-
-<% if @nouns.any? %>
-  <%= will_paginate @nouns %>
-  <ul id="nouns_list" class="simple_list">
-    <%= render partial: 'noun', collection: @nouns %>
-  </ul>
-  <%= will_paginate @nouns %>
 <% end %>

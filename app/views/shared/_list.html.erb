@@ -1,0 +1,7 @@
+<% if objects.any? %>
+  <%= will_paginate objects %>
+  <ul id="objects_list" class="simple_list">
+    <%= render partial: partial_name, collection: objects %>
+  </ul>
+  <%= will_paginate @nouns %>
+<% end %>
