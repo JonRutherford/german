@@ -8,7 +8,8 @@ class VerbsController < ApplicationController
     @verb = Verb.new
     @verb.infinitive = Word.new
     @verb.present_tense = Tense.new
-    @verbs = Verb.search(params[:search], params[:page])
+    @search = params[:search]
+    @verbs = Verb.search(@search, params[:page])
     respond_to do |format|
       format.html
     end
@@ -16,7 +17,8 @@ class VerbsController < ApplicationController
 
   def show
     @verb = Verb.find(params[:id])
-    @verbs = Verb.search(params[:search], params[:page])
+    @search = params[:search]
+    @verbs = Verb.search(@search, params[:page])
     render action: :index
   end
 

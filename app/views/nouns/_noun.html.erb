@@ -3,17 +3,15 @@
     <em><%= wrap(noun.english) %></em>
     <strong><%= "#{noun.article.nominative} #{wrap(noun.german)}" %></strong>
 
-    <div class="actions">
-      <% if current_user.admin? %>
-        <%= link_to noun_path(noun), class: "btn btn-mini btn-warning" do %>
-    	    <i class="icon-pencil"></i> Edit
-  	    <% end %>
-      <% end %>
-      <% if current_user.admin? %>
-        <%= link_to noun, class: "btn btn-mini btn-danger", method: :delete, data: { confirm: "Are you sure?" } do %>
-    	    <i class="icon-remove"></i> Delete
-  	    <% end %>
-      <% end %>
-	  </div>
+    <% if current_user.admin? %>
+      <%= link_to noun_path(noun), class: "btn btn-mini btn-warning" do %>
+  	    <i class="icon-pencil"></i> Edit
+	    <% end %>
+    <% end %>
+    <% if current_user.admin? %>
+      <%= link_to noun, class: "btn btn-mini btn-danger", method: :delete, data: { confirm: "Are you sure?" } do %>
+  	    <i class="icon-remove"></i> Delete
+	    <% end %>
+    <% end %>
   </div>
 </li>

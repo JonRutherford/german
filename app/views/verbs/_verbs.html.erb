@@ -3,8 +3,12 @@
     <span class="add-on"><i class="icon-search"></i></span>
     <%= search_field_tag :search, params[:search], value: @search || "", placeholder: "Search", class: "search-query" %>
   </div>
+  <% if !params[:search].blank? %>
+    <div id="search_results_description">
+      <em><%= pluralize(@verbs.count, "search result") %> for <%= @search %></em>
+    </div>
+  <% end %>
 <% end %>
-
 <% if @verbs.any? %>
   <%= will_paginate @verbs %>
   <ul id="verbs_list" class="simple_list">

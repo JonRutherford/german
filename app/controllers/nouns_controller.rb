@@ -6,7 +6,8 @@ class NounsController < ApplicationController
 
   def index
     @noun = Noun.new
-    @nouns = Noun.search(params[:search], params[:page])
+    @search = params[:search]
+    @nouns = Noun.search(@search, params[:page])
     respond_to do |format|
       format.html # index.html.erb
       # format.json { render json: @nouns }
@@ -15,7 +16,8 @@ class NounsController < ApplicationController
 
   def show
     @noun = Noun.find(params[:id])
-    @nouns = Noun.search(params[:search], params[:page])
+    @search = params[:search]
+    @nouns = Noun.search(@search, params[:page])
     render action: :index
   end
 
