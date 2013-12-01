@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131201013934) do
+ActiveRecord::Schema.define(:version => 20131201070047) do
 
   create_table "articles", :force => true do |t|
     t.string   "nominative"
@@ -40,18 +40,28 @@ ActiveRecord::Schema.define(:version => 20131201013934) do
   add_index "categorisations", ["category_id"], :name => "index_categorisations_on_category_id"
 
   create_table "nouns", :force => true do |t|
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
     t.string   "notes"
     t.integer  "article_id"
     t.string   "english"
     t.string   "german"
-    t.string   "plural"
     t.integer  "updated_by_id"
     t.integer  "created_by_id"
+    t.integer  "pluralisation_rule_id"
   end
 
+  add_index "nouns", ["created_by_id"], :name => "index_nouns_on_created_by_id"
   add_index "nouns", ["english", "german"], :name => "index_nouns_on_english_and_german", :unique => true
+  add_index "nouns", ["updated_by_id"], :name => "index_nouns_on_updated_by_id"
+
+  create_table "pluralisation_rules", :force => true do |t|
+    t.string   "rule"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "pluralisation_rules", ["rule"], :name => "index_pluralisation_rules_on_rule", :unique => true
 
   create_table "quizzes", :force => true do |t|
     t.datetime "created_at", :null => false

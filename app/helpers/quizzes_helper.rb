@@ -22,4 +22,8 @@ module QuizzesHelper
   def correct_answer(obj)
   	@order == "en_to_de" ? obj.german : obj.english
   end
+
+  def categories_of_type(type)
+    Category.includes(:categorisations).where(categorisations: { sentence_part_type: type })
+  end
 end

@@ -3,7 +3,7 @@
 <!--   <%= render 'shared/german_chars' %> -->
   <%= f.text_field :english %>
   <%= f.text_field :german %>
-  <%= f.text_field :plural %>
+  <%= f.collection_select :pluralisation_rule_id, PluralisationRule.all, :id, :rule %>
   <%= f.collection_select :article_id, Article.all, :id, :nominative, {} %>
   <%= f.collection_select :category_ids, Category.all, :id, :name, { selected: @noun.categories.map(&:id), include_blank: false }, { multiple: true, label: "Categories" } %>
   <%= f.text_area :notes, placeholder: "Additional notes/helpers", rows: 5 %>

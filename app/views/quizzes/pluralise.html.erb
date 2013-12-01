@@ -1,20 +1,22 @@
-<div class="row">
-  <div class="span8 offset2">
-    <%= form_tag(:quizzes_pluralise, remote: false, method: :get, id: "category_form") do %>
+<div class="row"> 
+  <div id="question" class="span6 offset2">
+  <%= form_tag(:quizzes_pluralise, remote: false, method: :get, id: "category_form") do %>
     <%= select_tag :category_id, options_from_collection_for_select(categories_of_type(:Noun), :id, :name_and_count_noun, @category_id) %>
   <% end %>
     <h2 id="noun_text" title="<%= @noun.english %>"><%= @noun.german %></h2>
-    <%= form_tag(:quizzes_der_die_das, remote: true, class: "ddd_form") do %>
+    <%= form_tag(:quizzes_pluralise, remote: true) do %>
       <%= hidden_field_tag :noun_id, @noun.id, id: "noun_id" %> 
       <% @prev_answers.each do |a| %>
         <%= hidden_field_tag "prev_answers[]", a, class: "prev_answer", id: "prev_answer_" + a %>
       <% end %>
-      <% @definite_nominative_articles.each do |a| %>
-        <% disabled = @prev_answers.include?(a) 
+      <% PluralisationRule.all.each do |pr| %>
+        <% disabled = @prev_answers.include?(pr.rule) 
            btn_cls = disabled ? "btn-danger" : "btn-info" %>
-        <%= submit_tag a, class: "submit btn #{btn_cls}", disabled: disabled %>
+        <%= submit_tag pr.rule, class: "submit btn #{btn_cls}", disabled: disabled %>
       <% end %>
     <% end %>
   </div>
-  <div class="span2"/>
+  <div class="span4">
+    
+  </div>
 </div>

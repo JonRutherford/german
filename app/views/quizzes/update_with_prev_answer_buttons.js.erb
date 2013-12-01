@@ -1,0 +1,24 @@
+<% if @correct %>
+  $("#noun_text").fadeOut('fast', function() {
+    $(this).prop('title', "<%= @noun.english %>")
+    $(this).text("<%= @noun.german %>").fadeIn('fast');
+  }); 
+
+  $("#noun_id").val(<%= @noun.id %>);
+  $("[name*=prev_answer]").remove();
+  var btns = $(".submit");
+  toggle_class(btns, "btn-danger", "btn-info");
+  btns.prop('disabled', false);
+<% else %>
+  var form_div = $(".ddd_form > div");
+  <% @prev_answers.each do |a| %>
+    var btn = $(".submit[value=<%= a %>]");
+    toggle_class(btn, "btn-info", "btn-danger");
+    btn.prop('disabled', true);
+
+    var hidden_ans = $("#prev_answer_<%= a %>");
+    if (hidden_ans.get(0) == null) {
+      form_div.append("<%= escape_javascript(hidden_field_tag('prev_answer[]', a, id: 'prev_answer_' + a)) %>");
+    }
+  <% end %>
+<% end %>

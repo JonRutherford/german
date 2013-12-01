@@ -1,16 +1,15 @@
 class QuizzesController < ApplicationController
+  
+  include QuizzesHelper
+
   before_filter :signed_in_user
   before_filter :hint
   before_filter :check_order, only: [:random_sentence, :translate_noun]
-  before_filter :current_noun, only: [:der_die_das, :translate_noun, :plural]
+  before_filter :current_noun, except: [:index]
+  before_filter :set_category, except: [:index]
 
-  def random_sentence
-    @sentence = Sentence.random
-    respond_to do |format|
-      format.html
-      format.js
-    end
-  end 
+  def index
+  end
 
   def translate_noun
     @correct = !@noun.nil? && 
@@ -26,23 +25,22 @@ class QuizzesController < ApplicationController
   def der_die_das
     @definite_nominative_articles = ["der", "die", "das"]
     @correct = !@noun.nil? && @noun.article.nominative == params[:commit]
-    @noun = Noun.random if @noun.nil? || @correct
+    @noun = Noun.random(@category_id) if @noun.nil? || @correct
     set_prev_answers
     respond_to do |format|
       format.html
-      format.js
+      format.js { render :update_with_prev_answer_buttons }
     end
   end
 
-  def plural
-    @correct = !@noun.nil? && @noun.plural = params[:plural]
-    @noun = Noun.random if @noun.nil? || @correct
+  def pluralise
+    @correct = !@noun.nil? && @noun.pluralisation_rule.rule == params[:commit]
+    @noun = Noun.random(@category_id) if @noun.nil? || @correct
+    set_prev_answers
     respond_to do |format|
       format.html
+      format.js { render :update_with_prev_answer_buttons }
     end
-  end
-
-  def index
   end
 
   private
@@ -55,9 +53,6 @@ class QuizzesController < ApplicationController
     end
 
     def check_order
-
-      print "SFSAHFSAJF #{params[:order]}"
-
       @is_random = !orders.include?(params[:order])
       @order = @is_random ? orders[rand(orders.count())] : params[:order]
     end
@@ -71,5 +66,11 @@ class QuizzesController < ApplicationController
       @prev_answers = @correct ? [] : params[:prev_answers]
       @prev_answers << params[:commit] unless @correct \
         || params[:commit].nil? || @prev_answers.include?(params[:commit])
+    end
+
+    def set_category
+      @category_id = params[:category_id] \
+                      ? Category.where(id: params[:category_id]).first \
+                      : categories_of_type(Noun).first
     end
 end

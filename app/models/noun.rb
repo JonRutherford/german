@@ -20,8 +20,9 @@ class Noun < ActiveRecord::Base
   belongs_to :article
   belongs_to :updated_by, class_name: :User
   belongs_to :created_by, class_name: :User
-  attr_accessible :category_ids, :article_id, :english, :german, :plural, :notes,
-    :updated_by, :created_by
+  belongs_to :pluralisation_rule;
+  attr_accessible :category_ids, :article_id, :english, :german, 
+                  :pluralisation_rule_id, :notes, :updated_by, :created_by
 
   validates :english, presence: true, uniqueness: { scope: :german, case_sensitive: true }
   validates :german, presence: true, uniqueness: { case_sensitive: true }
@@ -30,15 +31,18 @@ class Noun < ActiveRecord::Base
   validates :updated_by, presence: true
   validates :created_by, presence: true
   validates :categories, presence: true
+  validates :pluralisation_rule, presence: true
   	
   # for removing blank values from array (useful for collection_select bug)			   
   # before_validation do |noun|
   #   noun.category_ids.reject!(&:blank?) if noun.category_ids
   # end
 
-  def self.random(n=1)
+  def self.random(category_id=1, n=1)
     ids = ActiveRecord::Base.connection.select_values("select id from #{self.to_s.pluralize}").sample(n)
-    res = where(id: ids)
+    res = includes(:categories).where(nouns: {id: ids}, categories: {id: category_id})
+    #res = includes(:categories).where("categories.id" => category_id).and(id: id)
+    #res = joins(:categories).where(id: ids, categories: { id: category_id} )
     return n == 1 ? res.first : res
   end
 
