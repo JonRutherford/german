@@ -69,9 +69,6 @@ class QuizzesController < ApplicationController
     end
 
     def set_category
-
-      pp "\n\n\n\n\n#{params[:category_id]}\n\n\n\n\n"
-
       @category = params[:category_id] \
                       ? Category.where(id: params[:category_id]).first \
                       : categories_of_type(Noun).first
