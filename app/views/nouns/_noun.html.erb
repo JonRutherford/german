@@ -1,7 +1,7 @@
 <li id="<%= noun.id %>">
   <div class="content">
     <em><%= wrap(noun.english) %></em>
-    <strong><%= "#{noun.article.nominative} #{wrap(noun.german)}" %></strong>
+    <strong><%= wrap("#{noun.article.nominative} #{noun.german} (#{noun.pluralisation_rule.rule})") %></strong>
 
     <% if current_user.admin? %>
       <%= link_to noun_path(noun), class: "btn btn-mini btn-warning" do %>

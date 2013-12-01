@@ -25,7 +25,7 @@ class QuizzesController < ApplicationController
   def der_die_das
     @definite_nominative_articles = ["der", "die", "das"]
     @correct = !@noun.nil? && @noun.article.nominative == params[:commit]
-    @noun = Noun.random(@category_id) if @noun.nil? || @correct
+    @noun = Noun.random(@category) if @noun.nil? || @correct
     set_prev_answers
     respond_to do |format|
       format.html
@@ -35,7 +35,7 @@ class QuizzesController < ApplicationController
 
   def pluralise
     @correct = !@noun.nil? && @noun.pluralisation_rule.rule == params[:commit]
-    @noun = Noun.random(@category_id) if @noun.nil? || @correct
+    @noun = Noun.random(@category) if @noun.nil? || @correct
     set_prev_answers
     respond_to do |format|
       format.html
@@ -69,7 +69,10 @@ class QuizzesController < ApplicationController
     end
 
     def set_category
-      @category_id = params[:category_id] \
+
+      pp "\n\n\n\n\n#{params[:category_id]}\n\n\n\n\n"
+
+      @category = params[:category_id] \
                       ? Category.where(id: params[:category_id]).first \
                       : categories_of_type(Noun).first
     end

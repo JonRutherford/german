@@ -1,7 +1,7 @@
 <div class="row"> 
   <div id="question" class="span6 offset2">
   <%= form_tag(:quizzes_pluralise, remote: false, method: :get, id: "category_form") do %>
-    <%= select_tag :category_id, options_from_collection_for_select(categories_of_type(:Noun), :id, :name_and_count_noun, @category_id) %>
+    <%= select_tag :category_id, options_from_collection_for_select(categories_of_type(:Noun), :id, :name_and_count_noun, @category.id) %>
   <% end %>
     <h2 id="noun_text" title="<%= @noun.english %>"><%= @noun.german %></h2>
     <%= form_tag(:quizzes_pluralise, remote: true) do %>
@@ -14,6 +14,7 @@
            btn_cls = disabled ? "btn-danger" : "btn-info" %>
         <%= submit_tag pr.rule, class: "submit btn #{btn_cls}", disabled: disabled %>
       <% end %>
+      <%= hidden_field_tag :category_id, @category.id %>
     <% end %>
   </div>
   <div class="span4">

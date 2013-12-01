@@ -38,13 +38,16 @@ class Noun < ActiveRecord::Base
   #   noun.category_ids.reject!(&:blank?) if noun.category_ids
   # end
 
-  def self.random(category_id=1, n=1)
-    ids = ActiveRecord::Base.connection.select_values("select id from #{self.to_s.pluralize}").sample(n)
-    res = includes(:categories).where(nouns: {id: ids}, categories: {id: category_id})
+  def self.random(category=Category.first)
+    res = includes(:categories).where(categories: {id: category.id})
+    #ids = ActiveRecord::Base.connection.select_values("select id from #{self.to_s.pluralize}").sample(n)
+    #res = includes(:categories).where(nouns: {id: ids}, categories: {id: category_id})
     #res = includes(:categories).where("categories.id" => category_id).and(id: id)
     #res = joins(:categories).where(id: ids, categories: { id: category_id} )
-    return n == 1 ? res.first : res
+    return res.sample(1).first
   end
+
+
 
   def self.search(search, page)
   	search_cond = "%#{search}%"
