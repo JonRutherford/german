@@ -20,7 +20,7 @@ class Noun < ActiveRecord::Base
   belongs_to :article
   belongs_to :updated_by, class_name: :User
   belongs_to :created_by, class_name: :User
-  belongs_to :pluralisation_rule;
+  belongs_to :pluralisation_rule
   attr_accessible :category_ids, :article_id, :english, :german, 
                   :pluralisation_rule_id, :notes, :updated_by, :created_by
 
